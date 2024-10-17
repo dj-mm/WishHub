@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="WH.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WisheshHub</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #ff69b4;
+      background-image: url('https://via.placeholder.com/1920x1080.png?text=💕🎉💖');
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      padding: 20px;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #000; /* Black heading */
+      font-weight: bold;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 25px;
+      padding: 25px; /* Updated padding */
+      max-width: 450px;
+      margin: auto;
+      box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.3);
+      color: #333;
+      overflow: hidden;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #ff1493;
+      border-radius: 50px;
+      font-size: 1em;
+    }
+
+    input::placeholder {
+      color: #ff1493;
+      font-style: italic;
+      opacity: 0.8;
+    }
+
+    button {
+      background-color: #ff1493;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #ff69b4;
+      transform: scale(1.05);
+    }
+
+    .wish {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+      border: 2px solid #ff1493;
+      border-radius: 15px;
+      padding: 20px; /* Updated padding */
+      display: inline-block;
+      background-color: rgba(255, 255, 255, 0.8);
+      transition: transform 0.2s;
+      min-height: 100px; /* Ensures the box has a minimum height */
+      text-align: left; /* Align text to left */
+      display: none; /* Hidden by default */
+    }
+
+    .wish:hover {
+      transform: scale(1.02);
+    }
+
+    .emoji {
+      font-size: 1.5em;
+    }
+
+    .footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #fff;
+    }
+
+    #wish-buttons {
+      display: none; /* Hide buttons until wish is generated */
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .container {
+        padding: 15px;
+      }
+
+      button, input, select {
+        padding: 10px;
+        font-size: 0.9em;
+      }
+
+      .wish {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Special Birthday Wishes 🎉</h1>
+
+  <div class="container">
+    <label for="name">Name of Birthday Person</label>
+    <input type="text" id="name" placeholder="✨ Enter their beautiful name here ✨" />
+
+    <label for="gender">Is the birthday person a boy or girl?</label>
+    <select id="gender" onchange="updateRelationOptions()">
+      <option value="">Select</option>
+      <option value="boy">Boy</option>
+      <option value="girl">Girl</option>
+    </select>
+
+    <label for="relation">Your relation with them</label>
+    <select id="relation">
+      <option value="">Select</option>
+      <option value="friend">Friend</option>
+      <option value="brother">Brother</option>
+      <option value="parent">Parent</option>
+      <option value="ex">Ex</option>
+      <option value="girlfriend">Girlfriend</option>
+      <option value="crush">Crush</option>
+      <option value="sister">Sister</option>
+      <option value="boyfriend" style="display:none;">Boyfriend</option> <!-- Hidden by default -->
+    </select>
+
+    <button onclick="generateWish()">Generate Wish</button>
+
+    <div id="wish-output" class="wish"></div>
+    
+    <div id="wish-buttons">
+      <button id="copy-button" onclick="copyWish()">Copy Wish</button>
+      
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Developed with ❤️ by <b><a href="https://linktr.ee/manash.djmm" target="_blank" style="text-decoration: none;">Manash</a></b> | YourPassword |</p>
+    
+  </div>
+
+  <script>
+    let currentWish = '';
+
+    function updateRelationOptions() {
+      const gender = document.getElementById('gender').value;
+      const boyfriendOption = document.querySelector('option[value="boyfriend"]');
+      
+      // Show or hide the boyfriend option based on selected gender
+      if (gender === 'girl') {
+        boyfriendOption.style.display = 'block';
+      } else {
+        boyfriendOption.style.display = 'none';
+      }
+      
+      // Reset relation selection
+      document.getElementById('relation').value = '';
+    }
+
+    function generateWish() {
+      const name = document.getElementById('name').value;
+      const gender = document.getElementById('gender').value;
+      const relation = document.getElementById('relation').value;
+
+      if (!name) {
+        alert('Please enter the name of the birthday person!');
+        return;
+      }
+
+      if (gender === '' || relation === '') {
+        alert('Please select both gender and relation!');
+        return;
+      }
+
+      let wish = '';
+      let emojis = '';
+
+      // Generate wish based on gender and relation
+      if (gender === 'boy') {
+        if (relation === 'friend') {
+          wish = `Hey ${name}, happy birthday to my best buddy! 🎂🥳 I hope your day is filled with joy and laughter.`;
+          emojis = '🎉👑';
+        } else if (relation === 'brother') {
+          wish = `Happy birthday to my amazing brother, ${name}! 🎂🎉 You’re the best, and I hope this year brings you all you’ve ever dreamed of.`;
+          emojis = '🎁💪';
+        } else if (relation === 'parent') {
+          wish = `Dear ${name}, happy birthday! 🎂🎉 You’re the best parent anyone could ask for, and I’m so grateful for you.`;
+          emojis = '👨‍👧👑';
+        } else if (relation === 'ex') {
+          wish = `Hey ${name}, happy birthday! 🎉 We had some good times, and I hope today brings you happiness.`;
+          emojis = '🎂💭';
+        } else if (relation === 'crush') {
+          wish = `Happy birthday, ${name}! 🎂🥳 I hope your day is as amazing as you are.`;
+          emojis = '💓✨';
+        } else if (relation === 'boyfriend') {
+          wish = `Happy birthday to my amazing boyfriend, ${name}! 🎂❤️ You bring so much joy to my life. Have a fantastic day!`;
+          emojis = '💖🎉';
+        }
+      } else {
+        if (relation === 'friend') {
+          wish = `Hey ${name}, happy birthday to my wonderful friend! 🎂🥳 Hope your day is as amazing as you are.`;
+          emojis = '🎉💖';
+        } else if (relation === 'sister') {
+          wish = `Happy birthday to the best sister ever, ${name}! 🎂🎉 You light up my life every day, and I’m so lucky to have you.`;
+          emojis = '🎁💃';
+        } else if (relation === 'parent') {
+          wish = `Dear ${name}, happy birthday! 🎂🎉 You’re the best parent anyone could ask for, and I’m so grateful for you.`;
+          emojis = '👩‍👧👑';
+        } else if (relation === 'ex') {
+          wish = `Hey ${name}, happy birthday! 🎉 We had some good times, and I hope today brings you happiness.`;
+          emojis = '🎂💭';
+        } else if (relation === 'girlfriend') {
+          wish = `Happy birthday to my love, ${name}! 🎂💖 You make my world brighter every day. Have the best day ever!`;
+          emojis = '❤️🎉';
+        } else if (relation === 'crush') {
+          wish = `Happy birthday, ${name}! 🎂🥳 I hope your day is filled with love and joy.`;
+          emojis = '💓✨';
+        }
+      }
+
+      currentWish = `${wish} ${emojis}`;
+      document.getElementById('wish-output').innerText = currentWish;
+      document.getElementById('wish-output').style.display = 'block'; // Show wish
+      document.getElementById('wish-buttons').style.display = 'block'; // Show buttons
+    }
+
+    function copyWish() {
+      navigator.clipboard.writeText(currentWish).then(() => {
+        alert('Wish copied to clipboard!');
+      }, () => {
+        alert('Failed to copy wish.');
+      });
+    }
+  </script>
+</body>
+</html>
